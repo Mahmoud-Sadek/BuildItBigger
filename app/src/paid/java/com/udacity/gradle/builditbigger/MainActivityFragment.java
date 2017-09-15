@@ -41,7 +41,7 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted {
 
     public void loadData() {
         mProgressBar.setVisibility(View.VISIBLE);
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this, getContext());
         endpointsAsyncTask.execute();
     }
 
