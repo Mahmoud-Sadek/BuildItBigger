@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,14 +49,18 @@ Button mJokeButton;
     }
     public void loadData() {
         mProgressBar.setVisibility(View.VISIBLE);
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this, getContext());
         endpointsAsyncTask.execute();
     }
-    @Override
-    public void onTaskCompleted(String result) {
-        Intent intent = new Intent(getActivity(), JokeActivity.class);
-        mProgressBar.setVisibility(View.GONE);
+    public void onTaskCompleted(String result, Context context) {
+        Intent intent = new Intent(context, JokeActivity.class);
         intent.putExtra(JokeActivity.JOKE_KEY, result);
-        startActivity(intent);
+        context.startActivity(intent);
+
+        try {
+            mProgressBar.setVisibility(View.GONE);
+        } catch (Exception e) {
+            //action
+        }
     }
 }

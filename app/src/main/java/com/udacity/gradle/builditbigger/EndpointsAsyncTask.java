@@ -17,10 +17,11 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     private static MyApi myApiService = null;
     private OnTaskCompleted mListener;
 
-    public EndpointsAsyncTask (OnTaskCompleted listener) {
+    Context context;
+    public EndpointsAsyncTask (OnTaskCompleted listener, Context context) {
         this.mListener = listener;
+        this.context = context;
     }
-
     @Override
     protected String doInBackground(Void... params){
         if(myApiService == null) {  // Only do this once
@@ -51,6 +52,6 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
 
-        mListener.onTaskCompleted(result);
+        mListener.onTaskCompleted(result, context);
     }
 }
